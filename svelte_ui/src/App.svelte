@@ -1,5 +1,6 @@
 <script>
   import Nav from "./components/Nav.svelte";
+  import { meanings } from "./store";
 </script>
 
 <main>
@@ -7,24 +8,14 @@
   <section>
     <aside class="meaning">
       <h1>Meanings</h1>
-      <div class="definitions">
-        <p>Noun:</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto,
-          ipsam? Aliquam eligendi laboriosam ad consequuntur laudantium iure
-          natus. Consequatur, eius sapiente! Quasi odio nisi inventore provident
-          dolore saepe perspiciatis excepturi.
-        </p>
-      </div>
-      <div class="definitions">
-        <p>Verb:</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto,
-          ipsam? Aliquam eligendi laboriosam ad consequuntur laudantium iure
-          natus. Consequatur, eius sapiente! Quasi odio nisi inventore provident
-          dolore saepe perspiciatis excepturi.
-        </p>
-      </div>
+      {#each $meanings as meaning}
+        <div class="definitions">
+          <p>{meaning[0]}:</p>
+          <p>
+            {meaning[1]}
+          </p>
+        </div>
+      {/each}
     </aside>
 
     <aside class="synonyms">
@@ -45,8 +36,6 @@
       </div>
     </aside>
   </section>
-
-
 </main>
 
 <style lang="scss">
@@ -68,14 +57,17 @@
       :first-child {
         margin-right: 1%;
         text-decoration: underline;
-        font-size: larger;
+        font-size: medium;
+      }
+      :nth-child(2){
+        text-transform: uppercase;
       }
     }
 
     .synonyms {
       margin-top: 2%;
       @include block;
-      div{
+      div {
         margin-left: 5%;
       }
     }

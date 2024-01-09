@@ -55,10 +55,11 @@ const Merged = {
 };
 
 const getFromMerged = (value) => {
-  if (!Object.keys(Merged).includes(value)) {
+  let first_letter = value.toLowerCase().charAt(0);
+  if (!Object.keys(Merged).includes(first_letter)) {
     return false;
   } else {
-    return Merged[value];
+    return Merged[first_letter][value];
   }
 };
 export default getFromMerged;

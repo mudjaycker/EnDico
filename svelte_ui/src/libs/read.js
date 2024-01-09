@@ -4,11 +4,19 @@ import {meanings as meanings_store} from "../store"
 
 export class Read{
     constructor(str){
-        this.str = str.toLowerCase()
+        this.str = str.toUpperCase()
     }
     search(){
-        let first_letter = this.str.charAt(0)
-        let meanings = getFromMerged(first_letter)
-        console.log(meanings)
+        let meanings = getFromMerged(this.str)["MEANINGS"] || null
+        let meanings_list = []
+        if(meanings){
+            for(const key in meanings){
+                meanings_list.push(meanings[key])
+            }
+            meanings_store.set(meanings_list)
+            meanings_list = []
+        }else{
+            alert("This word does not exist in the dictionary")
+        }
     }
 }
