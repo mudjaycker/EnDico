@@ -10,10 +10,20 @@
       <h1>Meanings</h1>
       {#each $meanings as meaning}
         <div class="definitions">
-          <p>{meaning[0]}:</p>
-          <p>
-            {meaning[1]}
-          </p>
+          <span class="meanings">
+            <p>{meaning[0]}:</p>
+            <p>
+              {meaning[1]}
+            </p>
+          </span>
+          <span class="relateds">
+            <p>Related words:</p>
+            <ul>
+              {#each meaning[2] as related}
+                <li>{related}</li>
+              {/each}
+            </ul>
+          </span>
         </div>
       {/each}
     </aside>
@@ -39,6 +49,7 @@
 </main>
 
 <style lang="scss">
+  @use "./style_vars.scss" as vars;
   @mixin block {
     border: 1px solid red;
     padding: 1%;
@@ -53,14 +64,22 @@
       @include block;
     }
     .definitions {
-      display: flex;
-      :first-child {
-        margin-right: 1%;
+      display: block;
+      border: 1px solid vars.$blue;
+      .meanings {
+        display: flex;
+        :first-child {
+          margin-right: 1%;
+          text-decoration: underline;
+          font-size: medium;
+        }
+        :nth-child(2) {
+          text-transform: uppercase;
+        }
+      }
+      .relateds {
         text-decoration: underline;
         font-size: medium;
-      }
-      :nth-child(2) {
-        text-transform: uppercase;
       }
     }
 
