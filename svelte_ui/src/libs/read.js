@@ -16,7 +16,7 @@ export class Read {
       let meanings = data["MEANINGS"];
       let meanings_list = [];
 
-      if (!data || !meanings) {
+      if (!data) {
         alert(error_msg);
       } else {
         for (const key in meanings) {
@@ -28,7 +28,6 @@ export class Read {
     synonyms.set(data["SYNONYMS"]);
     antonyms.set(data["ANTONYMS"]);
     meanings_list = [];
-
     } catch (e) {
       alert(error_msg);
     }

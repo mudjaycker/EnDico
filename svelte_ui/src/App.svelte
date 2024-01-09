@@ -24,6 +24,16 @@
               {/each}
             </ul>
           </span>
+
+          <span class="relateds">
+            <p>Examples:</p>
+            <ul>
+              {#each meaning[3] as example}
+                <li>{example}</li>
+              {/each}
+            </ul>
+          </span>
+
         </div>
       {/each}
     </aside>
@@ -78,8 +88,10 @@
         }
       }
       .relateds {
-        text-decoration: underline;
-        font-size: medium;
+        p {
+          text-decoration: underline;
+          font-size: medium;
+        }
       }
     }
 
