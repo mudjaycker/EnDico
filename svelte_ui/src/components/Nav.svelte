@@ -10,7 +10,7 @@
 <nav>
   <section>
     <aside>
-      <h1>{text}</h1>
+      <h1 class="text">{text}</h1>
     </aside>
     <aside>
       <form action="" on:submit|preventDefault={()=>read(text)}>
@@ -35,11 +35,8 @@
       margin-right: 2%;
       display: flex;
       justify-content: space-between;
-      :first-child {
+      .text {
         color: white;
-      }
-      :nth-child(2){
-        color: black;
       }
     }
   }
