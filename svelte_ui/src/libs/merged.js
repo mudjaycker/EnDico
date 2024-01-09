@@ -53,4 +53,12 @@ const Merged = {
   y,
   z,
 };
-export default  Merged
+
+const getFromMerged = (value) => {
+  if (!Object.keys(Merged).includes(value)) {
+    return false;
+  } else {
+    return Merged[value];
+  }
+};
+export default getFromMerged;

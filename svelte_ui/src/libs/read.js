@@ -1,16 +1,14 @@
-import Merged from "./merged"
+import getFromMerged from "./merged"
+import {meanings as meanings_store} from "../store"
 
-export function testObject(){
-    console.log(Merged.a)
-}
 
 export class Read{
     constructor(str){
         this.str = str.toLowerCase()
     }
     search(){
-        if(this.str.startsWith("a")){
-            alert("cool")
-        }
+        let first_letter = this.str.charAt(0)
+        let meanings = getFromMerged(first_letter)
+        console.log(meanings)
     }
 }

@@ -1,5 +1,4 @@
 <script>
-  import { testObject } from "./libs/read";
   import Nav from "./components/Nav.svelte";
 </script>
 
@@ -8,7 +7,6 @@
   <section>
     <aside class="meaning">
       <h1>Meanings</h1>
-      <button on:click={testObject}>test</button>
       <div class="definitions">
         <p>Noun:</p>
         <p>
