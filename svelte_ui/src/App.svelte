@@ -1,6 +1,6 @@
 <script>
   import Nav from "./components/Nav.svelte";
-  import { meanings } from "./store";
+  import { meanings, synonyms } from "./store";
 </script>
 
 <main>
@@ -21,9 +21,9 @@
     <aside class="synonyms">
       <h1>Synonyms</h1>
       <div>
-        <p>Lorem</p>
-        <p>test</p>
-        <p>test3</p>
+        {#each $synonyms as synonym}
+          <p>{synonym}</p>
+        {/each}
       </div>
     </aside>
 
@@ -59,7 +59,7 @@
         text-decoration: underline;
         font-size: medium;
       }
-      :nth-child(2){
+      :nth-child(2) {
         text-transform: uppercase;
       }
     }

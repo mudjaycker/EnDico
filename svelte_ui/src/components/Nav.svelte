@@ -1,19 +1,19 @@
 <script>
   import { Read } from "../libs/read";
   let text = "";
-  const read = (txt) =>{
-    text = txt
-    new Read(txt).search()
-  }
+  const read = (txt) => {
+    text = txt;
+    new Read(txt).search();
+  };
 </script>
 
 <nav>
   <section>
-    <aside>
-      <h1 class="text">{text}</h1>
+    <aside style="text-transform: capitalize; color:white">
+      {text}
     </aside>
     <aside>
-      <form action="" on:submit|preventDefault={()=>read(text)}>
+      <form action="" on:submit|preventDefault={() => read(text)}>
         <input bind:value={text} type="text" placeholder="type a world..." />
         <button>Search</button>
       </form>
@@ -35,9 +35,6 @@
       margin-right: 2%;
       display: flex;
       justify-content: space-between;
-      .text {
-        color: white;
-      }
     }
   }
 </style>
