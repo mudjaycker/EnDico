@@ -1,6 +1,6 @@
 <script>
   import Nav from "./components/Nav.svelte";
-  import { meanings, synonyms } from "./store";
+  import { meanings, synonyms, antonyms } from "./store";
 </script>
 
 <main>
@@ -29,11 +29,11 @@
 
     <aside class="synonyms">
       <h1>Antonyms</h1>
-      <div>
-        <p>Lorem</p>
-        <p>test</p>
-        <p>test3</p>
-      </div>
+      {#each $antonyms as antonym}
+        <div>
+          <p>{antonym}</p>
+        </div>
+      {/each}
     </aside>
   </section>
 </main>
@@ -47,7 +47,7 @@
     margin-top: 10%;
     width: 80%;
     height: 100vh;
-    margin-bottom: 5%;
+    margin-bottom: 60%;
     margin-left: 10%;
     .meaning {
       @include block;

@@ -1,5 +1,5 @@
 import getFromMerged from "./merged";
-import { meanings as meanings_store, synonyms } from "../store";
+import { meanings as meanings_store, synonyms, antonyms } from "../store";
 
 export class Read {
   constructor(str) {
@@ -22,9 +22,8 @@ export class Read {
         meanings_list = [];
       }
 
-      synonyms.set(data["SYNONYMS"])
-
-
+      synonyms.set(data["SYNONYMS"]);
+      antonyms.set(data["ANTONYMS"]);
     } catch (e) {
       alert(error_msg);
     }
