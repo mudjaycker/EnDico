@@ -20,54 +20,65 @@
   <Nav />
   {#if $is_word_found}
     <section bind:this={section}>
-      <aside class="meaning">
-        <h1>Meanings</h1>
-        {#each $meanings as meaning}
-          <div class="definitions">
-            <span class="meanings">
-              <p>{meaning[0]}:</p>
-              <p>
-                {meaning[1]}
-              </p>
-            </span>
-            <span class="relateds">
-              <p>Related words:</p>
-              <ul>
-                {#each meaning[2] as related}
-                  <li>{related}</li>
-                {/each}
-              </ul>
-            </span>
+      {#if $meanings.length > 0}
+        <aside class="meaning">
+          <h1>Meanings</h1>
+          {#each $meanings as meaning}
+            <div class="definitions">
+              <span class="meanings">
+                <p>{meaning[0]}:</p>
+                <p>
+                  {meaning[1]}
+                </p>
+              </span>
 
-            <span class="relateds">
-              <p>Examples:</p>
-              <ul>
-                {#each meaning[3] as example}
-                  <li>{example}</li>
-                {/each}
-              </ul>
-            </span>
-          </div>
-        {/each}
-      </aside>
+              {#if meaning[2].length > 0}
+                <span class="relateds">
+                  <p>Related words:</p>
+                  <ul>
+                    {#each meaning[2] as related}
+                      <li>{related}</li>
+                    {/each}
+                  </ul>
+                </span>
+              {/if}
 
-      <aside class="synonyms">
-        <h1>Synonyms</h1>
-        <div>
-          {#each $synonyms as synonym}
-            <p>{synonym}</p>
+              {#if meaning[3].length > 0}
+                <span class="relateds">
+                  <p>Examples:</p>
+                  <ul>
+                    {#each meaning[3] as example}
+                      <li>{example}</li>
+                    {/each}
+                  </ul>
+                </span>
+              {/if}
+            </div>
           {/each}
-        </div>
-      </aside>
+        </aside>
+      {/if}
 
-      <aside class="synonyms">
-        <h1>Antonyms</h1>
-        {#each $antonyms as antonym}
+      {#if $synonyms.length > 0}
+        <aside class="synonyms">
+          <h1>Synonyms</h1>
           <div>
-            <p>{antonym}</p>
+            {#each $synonyms as synonym}
+              <p>{synonym}</p>
+            {/each}
           </div>
-        {/each}
-      </aside>
+        </aside>
+      {/if}
+
+      {#if $antonyms.length > 0}
+        <aside class="synonyms">
+          <h1>Antonyms</h1>
+          {#each $antonyms as antonym}
+            <div>
+              <p>{antonym}</p>
+            </div>
+          {/each}
+        </aside>
+      {/if}
     </section>
   {/if}
 </main>
