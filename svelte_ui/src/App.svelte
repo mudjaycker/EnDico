@@ -1,61 +1,75 @@
 <script>
+  import { is_word_found, meanings, synonyms, antonyms } from "./store";
   import Nav from "./components/Nav.svelte";
-  import { meanings, synonyms, antonyms } from "./store";
+
+  let section;
+
+  $: if (!!section) {
+    let height = section.offsetHeight;
+    let marginBottom = (15 * height) / 100;
+    let marginTop = (15 * height) / 100;
+    section.setAttribute(
+      "style",
+      `margin-top: ${marginTop}px; 
+      margin-bottom: ${marginBottom}px;`
+    );
+  }
 </script>
 
 <main>
   <Nav />
-  <section>
-    <aside class="meaning">
-      <h1>Meanings</h1>
-      {#each $meanings as meaning}
-        <div class="definitions">
-          <span class="meanings">
-            <p>{meaning[0]}:</p>
-            <p>
-              {meaning[1]}
-            </p>
-          </span>
-          <span class="relateds">
-            <p>Related words:</p>
-            <ul>
-              {#each meaning[2] as related}
-                <li>{related}</li>
-              {/each}
-            </ul>
-          </span>
+  {#if $is_word_found}
+    <section bind:this={section}>
+      <aside class="meaning">
+        <h1>Meanings</h1>
+        {#each $meanings as meaning}
+          <div class="definitions">
+            <span class="meanings">
+              <p>{meaning[0]}:</p>
+              <p>
+                {meaning[1]}
+              </p>
+            </span>
+            <span class="relateds">
+              <p>Related words:</p>
+              <ul>
+                {#each meaning[2] as related}
+                  <li>{related}</li>
+                {/each}
+              </ul>
+            </span>
 
-          <span class="relateds">
-            <p>Examples:</p>
-            <ul>
-              {#each meaning[3] as example}
-                <li>{example}</li>
-              {/each}
-            </ul>
-          </span>
-
-        </div>
-      {/each}
-    </aside>
-
-    <aside class="synonyms">
-      <h1>Synonyms</h1>
-      <div>
-        {#each $synonyms as synonym}
-          <p>{synonym}</p>
+            <span class="relateds">
+              <p>Examples:</p>
+              <ul>
+                {#each meaning[3] as example}
+                  <li>{example}</li>
+                {/each}
+              </ul>
+            </span>
+          </div>
         {/each}
-      </div>
-    </aside>
+      </aside>
 
-    <aside class="synonyms">
-      <h1>Antonyms</h1>
-      {#each $antonyms as antonym}
+      <aside class="synonyms">
+        <h1>Synonyms</h1>
         <div>
-          <p>{antonym}</p>
+          {#each $synonyms as synonym}
+            <p>{synonym}</p>
+          {/each}
         </div>
-      {/each}
-    </aside>
-  </section>
+      </aside>
+
+      <aside class="synonyms">
+        <h1>Antonyms</h1>
+        {#each $antonyms as antonym}
+          <div>
+            <p>{antonym}</p>
+          </div>
+        {/each}
+      </aside>
+    </section>
+  {/if}
 </main>
 
 <style lang="scss">
@@ -65,10 +79,10 @@
     padding: 1%;
   }
   section {
-    margin-top: 10%;
+    // margin-top: 10%;
     width: 80%;
-    height: 100vh;
-    margin-bottom: 60%;
+    // height: 100vh;
+    // margin-bottom: 60%;
     margin-left: 10%;
     .meaning {
       @include block;
