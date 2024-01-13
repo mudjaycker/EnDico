@@ -3,16 +3,19 @@
   import Nav from "./components/Nav.svelte";
 
   let section;
+  const percent = (perc, num) => (num * perc) / 100;
 
   $: if (!!section) {
     let height = section.offsetHeight;
-    let marginBottom = (15 * height) / 100;
-    let marginTop = (15 * height) / 100;
-    section.setAttribute(
-      "style",
-      `margin-top: ${marginTop}px; 
-      margin-bottom: ${marginBottom}px;`
-    );
+    let size =
+      height > 700
+        ? percent(5, height)
+        : height < 300
+          ? percent(55, height)
+          : percent(25, height);
+
+    console.log({ height });
+    section.setAttribute("style", `margin-bottom: ${size}px;`);
   }
 </script>
 
@@ -90,7 +93,7 @@
     padding: 1%;
   }
   section {
-    // margin-top: 10%;
+    margin-top: 10%;
     width: 80%;
     // height: 100vh;
     // margin-bottom: 60%;
