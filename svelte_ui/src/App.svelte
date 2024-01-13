@@ -7,13 +7,7 @@
 
   $: if (!!section) {
     let height = section.offsetHeight;
-    let size =
-      height > 700
-        ? percent(5, height)
-        : height < 300
-          ? percent(55, height)
-          : percent(25, height);
-
+    let size = percent(10, height);
     console.log({ height });
     section.setAttribute("style", `margin-bottom: ${size}px;`);
   }
@@ -64,22 +58,22 @@
       {#if $synonyms.length > 0}
         <aside class="synonyms">
           <h1>Synonyms</h1>
-          <div>
+          <ul>
             {#each $synonyms as synonym}
-              <p>{synonym}</p>
+              <li>{synonym}</li>
             {/each}
-          </div>
+          </ul>
         </aside>
       {/if}
 
       {#if $antonyms.length > 0}
         <aside class="synonyms">
           <h1>Antonyms</h1>
-          {#each $antonyms as antonym}
-            <div>
-              <p>{antonym}</p>
-            </div>
-          {/each}
+          <ul>
+            {#each $antonyms as antonym}
+              <li>{antonym}</li>
+            {/each}
+          </ul>
         </aside>
       {/if}
     </section>
@@ -89,21 +83,22 @@
 <style lang="scss">
   @use "./style_vars.scss" as vars;
   @mixin block {
-    border: 1px solid red;
+    border: 3px double vars.$red;
+    border-radius: 10px;
     padding: 1%;
   }
   section {
     margin-top: 10%;
     width: 80%;
-    // height: 100vh;
-    // margin-bottom: 60%;
     margin-left: 10%;
     .meaning {
       @include block;
     }
     .definitions {
       display: block;
-      border: 1px solid vars.$blue;
+      border: 2px solid vars.$blue;
+      margin-bottom: 1%;
+      padding-left: 0.5%;
       .meanings {
         display: flex;
         :first-child {
@@ -126,9 +121,6 @@
     .synonyms {
       margin-top: 2%;
       @include block;
-      div {
-        margin-left: 5%;
-      }
     }
   }
 </style>
