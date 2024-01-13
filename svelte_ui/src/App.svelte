@@ -5,8 +5,10 @@
     synonyms,
     antonyms,
     similars,
+    searched,
   } from "./store";
   import Nav from "./components/Nav.svelte";
+  import { searchWord } from "./libs/utils";
 
   let section;
   const percent = (perc, num) => (num * perc) / 100;
@@ -14,8 +16,11 @@
   $: if (!!section) {
     let height = section.offsetHeight;
     let size = percent(10, height);
-    // console.log({ height });
     section.setAttribute("style", `margin-bottom: ${size}px;`);
+  }
+  async function searchWord2(word) {
+    await searchWord(word);
+    searched.set(word);
   }
 </script>
 
@@ -83,25 +88,23 @@
         </aside>
       {/if}
     </section>
-
   {:else}
     <section>
       {#if $similars.length > 0}
         <aside class="synonyms">
           <h1>Similar spelled words</h1>
-          <ul>
-            {#each $similars as word}
-              <li>
-                <!-- svelte-ignore a11y-invalid-attribute -->
-                <a href="">{word}</a>
-              </li>
-            {/each}
-          </ul>
+          {#each $similars as word}
+            <li>
+              <button
+                style="margin-bottom:1%; cursor:pointer"
+                on:click={() => searchWord2(word)}>{word}</button
+              >
+            </li>
+          {/each}
         </aside>
       {/if}
     </section>
   {/if}
-
 </main>
 
 <style lang="scss">
