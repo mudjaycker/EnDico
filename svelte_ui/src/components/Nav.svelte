@@ -1,9 +1,10 @@
 <script>
   import { Read } from "../libs/read";
   let text = "";
-  const read = (txt) => {
+  const read = async (txt) => {
     text = txt;
-    new Read(txt).search();
+    const read = new Read(txt);
+    await read.search();
   };
 </script>
 

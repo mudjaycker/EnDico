@@ -1,65 +1,44 @@
-import a from "../data/a.json";
-import b from "../data/b.json";
-import c from "../data/c.json";
-import d from "../data/d.json";
-import e from "../data/e.json";
-import f from "../data/f.json";
-import g from "../data/g.json";
-import h from "../data/h.json";
-import i from "../data/i.json";
-import j from "../data/j.json";
-import k from "../data/k.json";
-import l from "../data/l.json";
-import m from "../data/m.json";
-import n from "../data/n.json";
-import o from "../data/o.json";
-import p from "../data/p.json";
-import q from "../data/q.json";
-import r from "../data/r.json";
-import s from "../data/s.json";
-import t from "../data/t.json";
-import u from "../data/u.json";
-import v from "../data/v.json";
-import w from "../data/w.json";
-import x from "../data/x.json";
-import y from "../data/y.json";
-import z from "../data/z.json";
-
-const Merged = {
-  a,
-  b,
-  c,
-  d,
-  e,
-  f,
-  g,
-  h,
-  i,
-  j,
-  k,
-  l,
-  m,
-  n,
-  o,
-  p,
-  q,
-  r,
-  s,
-  t,
-  u,
-  v,
-  w,
-  x,
-  y,
-  z,
+const getDicoData = async (file) => {
+  let result = await fetch("/dico_data/" + file);
+  return await result.json();
 };
 
-const getFromMerged = (value) => {
+const Merged = {
+  a: async () => await getDicoData("a.json"),
+  b: async () => await getDicoData("b.json"),
+  c: async () => await getDicoData("c.json"),
+  d: async () => await getDicoData("d.json"),
+  e: async () => await getDicoData("e.json"),
+  f: async () => await getDicoData("f.json"),
+  g: async () => await getDicoData("g.json"),
+  h: async () => await getDicoData("h.json"),
+  i: async () => await getDicoData("i.json"),
+  j: async () => await getDicoData("j.json"),
+  k: async () => await getDicoData("k.json"),
+  l: async () => await getDicoData("l.json"),
+  m: async () => await getDicoData("m.json"),
+  n: async () => await getDicoData("n.json"),
+  o: async () => await getDicoData("o.json"),
+  p: async () => await getDicoData("p.json"),
+  q: async () => await getDicoData("q.json"),
+  r: async () => await getDicoData("r.json"),
+  s: async () => await getDicoData("s.json"),
+  t: async () => await getDicoData("t.json"),
+  u: async () => await getDicoData("u.json"),
+  v: async () => await getDicoData("v.json"),
+  w: async () => await getDicoData("w.json"),
+  x: async () => await getDicoData("x.json"),
+  y: async () => await getDicoData("y.json"),
+  z: async () => await getDicoData("z.json"),
+};
+
+const getFromMerged = async (value) => {
   let first_letter = value.toLowerCase().charAt(0);
-  if (!Object.keys(Merged).includes(first_letter)) {
-    return false;
+  if (Object.keys(Merged).includes(first_letter)) {
+    let data = await Merged[first_letter]();
+    return data[value];
   } else {
-    return Merged[first_letter][value];
+    return false;
   }
 };
 export default getFromMerged;
