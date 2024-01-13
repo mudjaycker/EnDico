@@ -36,7 +36,7 @@ const getFromMerged = async (value) => {
   let first_letter = value.toLowerCase().charAt(0);
   if (Object.keys(Merged).includes(first_letter)) {
     let data = await Merged[first_letter]();
-    return data[value];
+    return data;
   } else {
     return false;
   }
