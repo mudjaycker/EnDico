@@ -5,21 +5,58 @@ import {
   antonyms,
   is_word_found,
   meanings,
+  similars,
 } from "../store";
 
 export class Read {
   constructor(str) {
-    this.str = str.toUpperCase();
+    this.str = str.trim().toUpperCase();
+    this._error_msg = "This word does not exist in the dictionary"
+  }
+
+  _add_values(times, target, value) {
+    for (let i = 0; i <= times; i++) {
+      target += value;
+    }
+    return target;
+  }
+
+  _looks_like(word, target) {
+    let accumultion = 0;
+    let word_ =
+      word.length >= target.length
+        ? word
+        : this._add_values(target.length - word.length, word, "a");
+
+    for (let i = 0; i < target.length; i++)
+      if (word_[i] == target[i]) accumultion += 1;
+
+    return (accumultion * 100) / target.length;
+  }
+
+  async _try_find() {
+    let data = await getFromMerged(this.str);
+    let results = [];
+    if (!data) {
+      console.log("error");
+    } else {
+      for (let key in data) {
+        if (this._looks_like(this.str, key) >= 75) {
+          results.push(key);
+        }
+      }
+      similars.set(results.slice(1, results.length -1))
+    }
   }
   async search() {
     is_word_found.set(false);
-    let error_msg = "This word does not exist in the dictionary";
     let meanings_list = [];
     try {
-      let data = await getFromMerged(this.str);
+      let awaited = await getFromMerged(this.str);
+      let data = awaited[this.str]
 
       if (!data) {
-        alert(error_msg);
+        throw new Error(this._error_msg)
       } else {
         synonyms.set(data["SYNONYMS"]);
         antonyms.set(data["ANTONYMS"]);
@@ -32,7 +69,7 @@ export class Read {
       }
     } catch (e) {
       is_word_found.set(false);
-      alert(error_msg);
+      this._try_find()
     } finally {
       meanings_list = [];
     }
