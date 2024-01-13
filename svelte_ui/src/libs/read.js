@@ -22,16 +22,16 @@ export class Read {
   }
 
   _looks_like(word, target) {
-    let accumultion = 0;
+    let accumulation = 0;
     let word_ =
       word.length >= target.length
         ? word
         : this._add_values(target.length - word.length, word, "a");
 
     for (let i = 0; i < target.length; i++)
-      if (word_[i] == target[i]) accumultion += 1;
+      if (word_[i] == target[i]) accumulation += 1;
 
-    return (accumultion * 100) / target.length;
+    return (accumulation * 100) / target.length;
   }
 
   async _try_find() {
