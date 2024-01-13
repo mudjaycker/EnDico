@@ -4,7 +4,6 @@ import {
   synonyms,
   antonyms,
   is_word_found,
-  meanings,
   similars,
 } from "../store";
 
