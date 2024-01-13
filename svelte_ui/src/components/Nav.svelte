@@ -1,21 +1,17 @@
 <script>
-  import { Read } from "../libs/read";
-  let text = "";
-  const read = async (txt) => {
-    text = txt;
-    const read = new Read(txt);
-    await read.search();
-  };
+  import { searchWord } from "../libs/utils";
+  import { searched } from "../store";
+
 </script>
 
 <nav>
   <section>
     <aside style="text-transform: capitalize; color:white">
-      {text}
+      {$searched}
     </aside>
     <aside>
-      <form action="" on:submit|preventDefault={() => read(text)}>
-        <input bind:value={text} type="text" placeholder="type a world..." />
+      <form action="" on:submit|preventDefault={() => searchWord($searched)}>
+        <input bind:value={$searched} type="text" placeholder="type a world..." />
         <button>Search</button>
       </form>
     </aside>
