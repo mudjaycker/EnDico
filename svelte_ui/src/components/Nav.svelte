@@ -6,7 +6,7 @@
 
 <nav>
   <section>
-    <aside style="text-transform: capitalize; color:white">
+    <aside style="text-transform: uppercase; color:white">
       {$searched}
     </aside>
     <aside>
