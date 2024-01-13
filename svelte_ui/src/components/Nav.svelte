@@ -29,7 +29,7 @@
     top: 0;
     background-color: var.$blue;
     width: 100%;
-    height: 10%;
+    height: 20%;
     section {
       margin-top: 2%;
       margin-left: 2%;
