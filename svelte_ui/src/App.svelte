@@ -1,5 +1,11 @@
 <script>
-  import { is_word_found, meanings, synonyms, antonyms } from "./store";
+  import {
+    is_word_found,
+    meanings,
+    synonyms,
+    antonyms,
+    similars,
+  } from "./store";
   import Nav from "./components/Nav.svelte";
 
   let section;
@@ -8,7 +14,7 @@
   $: if (!!section) {
     let height = section.offsetHeight;
     let size = percent(10, height);
-    console.log({ height });
+    // console.log({ height });
     section.setAttribute("style", `margin-bottom: ${size}px;`);
   }
 </script>
@@ -77,7 +83,25 @@
         </aside>
       {/if}
     </section>
+
+  {:else}
+    <section>
+      {#if $similars.length > 0}
+        <aside class="synonyms">
+          <h1>Similar spelled words</h1>
+          <ul>
+            {#each $similars as word}
+              <li>
+                <!-- svelte-ignore a11y-invalid-attribute -->
+                <a href="">{word}</a>
+              </li>
+            {/each}
+          </ul>
+        </aside>
+      {/if}
+    </section>
   {/if}
+
 </main>
 
 <style lang="scss">
