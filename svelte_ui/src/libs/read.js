@@ -10,7 +10,7 @@ import {
 export class Read {
   constructor(str) {
     this.str = str.trim().toUpperCase();
-    this._error_msg = "This word does not exist in the dictionary"
+    this._error_msg = "This word does not exist in the dictionary";
   }
 
   _add_values(times, target, value) {
@@ -40,11 +40,11 @@ export class Read {
       console.log("error");
     } else {
       for (let key in data) {
-        if (this._looks_like(this.str, key) >= 75) {
+        if (this._looks_like(this.str, key) >= 50) {
           results.push(key);
         }
       }
-      similars.set(results.slice(1, results.length -1))
+      similars.set(results.slice(1, results.length - 1));
     }
   }
   async search() {
@@ -52,10 +52,10 @@ export class Read {
     let meanings_list = [];
     try {
       let awaited = await getFromMerged(this.str);
-      let data = awaited[this.str]
+      let data = awaited[this.str];
 
       if (!data) {
-        throw new Error(this._error_msg)
+        throw new Error(this._error_msg);
       } else {
         synonyms.set(data["SYNONYMS"]);
         antonyms.set(data["ANTONYMS"]);
@@ -68,7 +68,7 @@ export class Read {
       }
     } catch (e) {
       is_word_found.set(false);
-      this._try_find()
+      this._try_find();
     } finally {
       meanings_list = [];
     }
