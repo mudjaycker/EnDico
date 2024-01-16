@@ -5,7 +5,6 @@ import {
   antonyms,
   is_word_found,
   similars,
-  searched,
   found,
 } from "../store";
 import CachedData from "./search_history";
