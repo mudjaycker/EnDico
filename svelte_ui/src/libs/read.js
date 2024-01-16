@@ -40,7 +40,7 @@ export class Read {
       alert(this._error_msg)
     } else {
       for (let key in data) {
-        if (this._looks_like(this.str, key) >= 50) {
+        if (this._looks_like(key, this.str) >= 60) {
           results.push(key);
         }
       }
