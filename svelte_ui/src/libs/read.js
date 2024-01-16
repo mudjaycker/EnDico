@@ -6,6 +6,7 @@ import {
   is_word_found,
   similars,
   searched,
+  found,
 } from "../store";
 import CachedData from "./search_history";
 
@@ -49,9 +50,10 @@ export class Read {
       similars.set(results.slice(1, results.length - 1));
     }
   }
-  async search(save) {
+  async _search(do_save) {
     is_word_found.set(false);
     let meanings_list = [];
+    console.log("run search");
     try {
       let awaited = await getFromMerged(this.str);
       let data = awaited[this.str];
@@ -59,6 +61,7 @@ export class Read {
       if (!data) {
         throw new Error(this._error_msg);
       } else {
+        found.set(this.str);
         synonyms.set(data["SYNONYMS"]);
         antonyms.set(data["ANTONYMS"]);
         let meanings = data["MEANINGS"];
@@ -67,16 +70,24 @@ export class Read {
           meanings_list.push(meanings[key]);
         }
         meanings_store.set(meanings_list);
-        if (save === true) {
+        if (do_save === true) {
           let history = new CachedData();
           history.add(this.str);
         }
       }
     } catch (e) {
-      console.log(e);
       is_word_found.set(false);
       this._try_find();
     }
   }
+  async search(do_save) {
+    let found_word;
+    found.subscribe((val) => {
+      found_word = val;
+    });
 
+    if (found_word !== this.str) {
+      await this._search(do_save);
+    }
+  }
 }
