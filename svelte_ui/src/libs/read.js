@@ -5,7 +5,9 @@ import {
   antonyms,
   is_word_found,
   similars,
+  searched,
 } from "../store";
+import CachedData from "./search_history";
 
 export class Read {
   constructor(str) {
@@ -37,7 +39,7 @@ export class Read {
     let data = await getFromMerged(this.str);
     let results = [];
     if (!data) {
-      alert(this._error_msg)
+      alert(this._error_msg);
     } else {
       for (let key in data) {
         if (this._looks_like(key, this.str) >= 60) {
@@ -47,7 +49,7 @@ export class Read {
       similars.set(results.slice(1, results.length - 1));
     }
   }
-  async search() {
+  async search(save) {
     is_word_found.set(false);
     let meanings_list = [];
     try {
@@ -65,10 +67,16 @@ export class Read {
           meanings_list.push(meanings[key]);
         }
         meanings_store.set(meanings_list);
+        if (save === true) {
+          let history = new CachedData();
+          history.add(this.str);
+        }
       }
     } catch (e) {
+      console.log(e);
       is_word_found.set(false);
       this._try_find();
     }
   }
+
 }

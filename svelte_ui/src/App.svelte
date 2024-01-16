@@ -18,8 +18,8 @@
     let size = percent(10, height);
     section.setAttribute("style", `margin-bottom: ${size}px;`);
   }
-  async function searchWord2(word) {
-    await searchWord(word);
+  async function searchWord2(word, save) {
+    await searchWord(word, save);
     searched.set(word);
   }
 </script>
@@ -97,7 +97,7 @@
             <li>
               <button
                 style="margin-bottom:1%; cursor:pointer"
-                on:click={() => searchWord2(word)}>{word}</button
+                on:click={() => searchWord2(word, true)}>{word}</button
               >
             </li>
           {/each}
