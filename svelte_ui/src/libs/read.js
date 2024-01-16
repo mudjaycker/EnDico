@@ -37,7 +37,7 @@ export class Read {
     let data = await getFromMerged(this.str);
     let results = [];
     if (!data) {
-      console.log("error");
+      alert(this._error_msg)
     } else {
       for (let key in data) {
         if (this._looks_like(this.str, key) >= 50) {
