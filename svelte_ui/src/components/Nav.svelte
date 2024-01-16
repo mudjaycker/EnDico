@@ -56,7 +56,7 @@
     top: 0;
     background-color: var.$blue;
     width: 100%;
-    height: 10%;
+    height: 15%;
     section {
       margin-top: 2%;
       margin-left: 2%;
@@ -68,7 +68,7 @@
 
   @media screen and (max-width: 1919px) {
     nav {
-      height: 7%;
+      height: 10%;
     }
   }
 </style>
