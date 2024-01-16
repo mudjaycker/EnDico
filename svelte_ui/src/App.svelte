@@ -147,6 +147,7 @@
 
     .synonyms {
       margin-top: 2%;
+      margin-bottom: 2%;
       @include block;
     }
   }
