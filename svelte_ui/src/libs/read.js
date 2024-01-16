@@ -69,8 +69,6 @@ export class Read {
     } catch (e) {
       is_word_found.set(false);
       this._try_find();
-    } finally {
-      meanings_list = [];
     }
   }
 }
