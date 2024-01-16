@@ -1,7 +1,6 @@
 <script>
   import { searchWord } from "../libs/utils";
   import { searched } from "../store";
-
 </script>
 
 <nav>
@@ -11,7 +10,11 @@
     </aside>
     <aside>
       <form action="" on:submit|preventDefault={() => searchWord($searched)}>
-        <input bind:value={$searched} type="text" placeholder="type a world..." />
+        <input
+          bind:value={$searched}
+          type="text"
+          placeholder="type a world..."
+        />
         <button>Search</button>
       </form>
     </aside>
@@ -25,13 +28,19 @@
     top: 0;
     background-color: var.$blue;
     width: 100%;
-    height: 20%;
+    height: 10%;
     section {
       margin-top: 2%;
       margin-left: 2%;
       margin-right: 2%;
       display: flex;
       justify-content: space-between;
+    }
+  }
+
+  @media screen and (max-width: 1919px) {
+    nav {
+      height: 7%;
     }
   }
 </style>
