@@ -42,11 +42,12 @@ export class Read {
       alert(this._error_msg);
     } else {
       for (let key in data) {
-        if (this._looks_like(key, this.str) >= 60) {
+        if (this._looks_like(key, this.str) >= 70) {
           results.push(key);
         }
       }
-      similars.set(results.slice(1, results.length - 1));
+      // results.reverse()
+      similars.set(results);
     }
   }
   async _search(do_save) {

@@ -5,10 +5,9 @@
     synonyms,
     antonyms,
     similars,
-    searched,
   } from "./store";
   import Nav from "./components/Nav.svelte";
-  import { searchWord } from "./libs/utils";
+  import Aside from "./components/Aside.svelte";
 
   let section;
   const percent = (perc, num) => (num * perc) / 100;
@@ -18,93 +17,71 @@
     let size = percent(10, height);
     section.setAttribute("style", `margin-bottom: ${size}px;`);
   }
-  async function searchWord2(word, save) {
-    await searchWord(word, save);
-    searched.set(word);
-  }
 </script>
 
 <main>
   <Nav />
-  {#if $is_word_found}
-    <section bind:this={section}>
-      {#if $meanings.length > 0}
-        <aside class="meaning">
-          <h1>Meanings</h1>
-          {#each $meanings as meaning}
-            <div class="definitions">
-              <span class="meanings">
-                <p>{meaning[0]}:</p>
-                <p>
-                  {meaning[1]}
-                </p>
-              </span>
-
-              {#if meaning[2].length > 0}
-                <span class="relateds">
-                  <p>Related words:</p>
-                  <ul>
-                    {#each meaning[2] as related}
-                      <li>{related}</li>
-                    {/each}
-                  </ul>
+  <div id="content">
+    {#if $is_word_found}
+      <section bind:this={section}>
+        {#if $meanings.length > 0}
+          <aside class="meaning">
+            <h1>Meanings</h1>
+            {#each $meanings as meaning}
+              <div class="definitions">
+                <span class="meanings">
+                  <p>{meaning[0]}:</p>
+                  <p>
+                    {meaning[1]}
+                  </p>
                 </span>
-              {/if}
 
-              {#if meaning[3].length > 0}
-                <span class="relateds">
-                  <p>Examples:</p>
-                  <ul>
-                    {#each meaning[3] as example}
-                      <li>{example}</li>
-                    {/each}
-                  </ul>
-                </span>
-              {/if}
-            </div>
-          {/each}
-        </aside>
-      {/if}
+                {#if meaning[2].length > 0}
+                  <span class="relateds">
+                    <p>Related words:</p>
+                    <ul>
+                      {#each meaning[2] as related}
+                        <li>{related}</li>
+                      {/each}
+                    </ul>
+                  </span>
+                {/if}
 
-      {#if $synonyms.length > 0}
-        <aside class="synonyms">
-          <h1>Synonyms</h1>
-          <ul>
-            {#each $synonyms as synonym}
-              <li>{synonym}</li>
+                {#if meaning[3].length > 0}
+                  <span class="relateds">
+                    <p>Examples:</p>
+                    <ul>
+                      {#each meaning[3] as example}
+                        <li>{example}</li>
+                      {/each}
+                    </ul>
+                  </span>
+                {/if}
+              </div>
             {/each}
-          </ul>
-        </aside>
-      {/if}
+          </aside>
+        {/if}
 
-      {#if $antonyms.length > 0}
-        <aside class="synonyms">
-          <h1>Antonyms</h1>
-          <ul>
-            {#each $antonyms as antonym}
-              <li>{antonym}</li>
-            {/each}
-          </ul>
-        </aside>
-      {/if}
-    </section>
-  {:else}
-    <section>
-      {#if $similars.length > 0}
-        <aside class="synonyms">
-          <h1>Similar spelled words</h1>
-          {#each $similars as word}
-            <li>
-              <button
-                style="margin-bottom:1%; cursor:pointer"
-                on:click={() => searchWord2(word, true)}>{word}</button
-              >
-            </li>
-          {/each}
-        </aside>
-      {/if}
-    </section>
-  {/if}
+        {#if $synonyms.length > 0}
+          <Aside values={$synonyms} title="Synonyms" />
+        {/if}
+
+        {#if $antonyms.length > 0}
+          <Aside title="Antonyms" values={$antonyms} />
+        {/if}
+      </section>
+    {:else}
+      <section>
+        {#if $similars.length > 0}
+          <Aside
+            title="Similar spelled words"
+            values={$similars}
+            hasBtns={true}
+          />
+        {/if}
+      </section>
+    {/if}
+  </div>
 </main>
 
 <style lang="scss">
@@ -144,11 +121,17 @@
         }
       }
     }
-
-    .synonyms {
-      margin-top: 2%;
-      margin-bottom: 2%;
-      @include block;
+  }
+  @media screen and (max-width: 1919px) {
+    #content {
+      margin-top: 15%;
     }
+    
+  }
+  @media screen and (max-width: 900px) {
+    #content {
+      margin-top: 25%;
+    }
+    
   }
 </style>
