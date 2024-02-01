@@ -8,22 +8,13 @@
   } from "./store";
   import Nav from "./components/Nav.svelte";
   import Aside from "./components/Aside.svelte";
-
-  let section;
-  const percent = (perc, num) => (num * perc) / 100;
-
-  $: if (!!section) {
-    let height = section.offsetHeight;
-    let size = percent(10, height);
-    section.setAttribute("style", `margin-bottom: ${size}px;`);
-  }
 </script>
 
 <main>
   <Nav />
   <div id="content">
     {#if $is_word_found}
-      <section bind:this={section}>
+      <section>
         {#if $meanings.length > 0}
           <aside class="meaning">
             <h1>Meanings</h1>
@@ -126,12 +117,10 @@
     #content {
       margin-top: 15%;
     }
-    
   }
   @media screen and (max-width: 900px) {
     #content {
       margin-top: 25%;
     }
-    
   }
 </style>
