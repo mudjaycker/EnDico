@@ -5,6 +5,8 @@
     synonyms,
     antonyms,
     similars,
+    is_history_showed,
+    histories,
   } from "./store";
   import Nav from "./components/Nav.svelte";
   import Aside from "./components/Aside.svelte";
@@ -13,7 +15,12 @@
 <main>
   <Nav />
   <div id="content">
-    {#if $is_word_found}
+    {#if $is_history_showed}
+      <section>
+        <Aside title="History" values={$histories} hasBtns={true} />
+      </section>
+    {/if}
+    {#if $is_word_found && !$is_history_showed}
       <section>
         {#if $meanings.length > 0}
           <aside class="meaning">
@@ -61,7 +68,7 @@
           <Aside title="Antonyms" values={$antonyms} />
         {/if}
       </section>
-    {:else}
+    {:else if !$is_history_showed}
       <section>
         {#if $similars.length > 0}
           <Aside
