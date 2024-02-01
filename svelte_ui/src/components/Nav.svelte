@@ -31,16 +31,10 @@
 
 <nav>
   <section>
-    <aside style="text-transform: uppercase; color:white">
+    <aside id="aside-text" style="text-transform: uppercase; color:white">
       {$searched}
-      {#if $data_is_cached}
-        <div>
-          {#if $data_is_cached}
-            <button on:click={toggleHistory}>{show_history_text}</button>
-          {/if}
-        </div>
-      {/if}
     </aside>
+
     <aside>
       <form
         action=""
@@ -51,8 +45,13 @@
           type="text"
           placeholder="type a world..."
         />
-        <button>Search</button>
+        <button id="search-btn">search</button>
       </form>
+      {#if $data_is_cached}
+        <button id="history-btn" on:click={toggleHistory}
+          >{show_history_text}</button
+        >
+      {/if}
     </aside>
   </section>
 </nav>
@@ -74,9 +73,44 @@
     }
   }
 
-  @media screen and (max-width: 1919px) {
+  #history-btn {
+    position: absolute;
+    top: 40%;
+    right: 80%;
+  }
+
+  @media screen and (max-width: 1200px) {
+    nav {
+      height: 30%;
+    }
+  }
+  @media screen and (max-width: 500px) {
     nav {
       height: 10%;
+    }
+    #search-btn {
+      font-size: small;
+      position: absolute;
+      top: 40%;
+      height: 45px;
+      left: 5%;
+    }
+    #history-btn {
+      position: absolute;
+      top: 40%;
+      right: 5%;
+      height: 45px;
+      font-size: 12px;
+    }
+    input {
+      width: 90vw;
+      // margin-left: 2%;
+      // margin-right: 2%;
+    }
+
+
+    #aside-text {
+      display: none;
     }
   }
 </style>
