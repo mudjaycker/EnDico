@@ -20,9 +20,12 @@
         <li>{value}</li>
       {:else}
         <li>
-          <button
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y-no-static-element-interactions -->
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a
             style="margin-bottom:1%; cursor:pointer"
-            on:click={() => searchWord2(value, true)}>{value}</button
+            on:click={() => searchWord2(value, true)}>{value}</a
           >
         </li>
       {/if}
@@ -41,6 +44,10 @@
     ul {
       max-height: 300px;
       overflow-y: auto;
+      a{
+        text-decoration: underline;
+        color: vars.$blue;
+      }
     }
   }
 </style>
