@@ -1,25 +1,32 @@
 <script>
   import { searchWord } from "../libs/utils";
-  import { data_is_cached, searched } from "../store";
+  import {
+    data_is_cached,
+    histories,
+    is_history_showed,
+    searched,
+  } from "../store";
   import CachedData from "../libs/search_history";
   import { onMount } from "svelte";
+
+  let history = new CachedData();
+  function toggleHistory() {
+    $is_history_showed = !$is_history_showed;
+  }
+  let show_history_text = "Show history";
+  $: {
+    if (!$is_history_showed) show_history_text = "Show history";
+    else show_history_text = "Hide history";
+  }
+
   onMount(() => {
-    let history = new CachedData();
     if (!!localStorage.getItem(history.db_name)) {
       $data_is_cached = true;
+      $histories = history.data();
     } else {
       $data_is_cached = false;
     }
   });
-  let history = new CachedData();
-  const next = () => {
-    $searched = history.next();
-    searchWord($searched, false);
-  };
-  const previous = () => {
-    $searched = history.previous();
-    searchWord($searched, false);
-  };
 </script>
 
 <nav>
@@ -27,10 +34,11 @@
     <aside style="text-transform: uppercase; color:white">
       {$searched}
       {#if $data_is_cached}
-       <div>
-        <button on:click={previous}>previous</button>
-        <button on:click={next}>next</button>
-       </div>
+        <div>
+          {#if $data_is_cached}
+            <button on:click={toggleHistory}>{show_history_text}</button>
+          {/if}
+        </div>
       {/if}
     </aside>
     <aside>
@@ -71,6 +79,4 @@
       height: 10%;
     }
   }
-
-  
 </style>

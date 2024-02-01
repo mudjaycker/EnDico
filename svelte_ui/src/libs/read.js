@@ -6,6 +6,7 @@ import {
   is_word_found,
   similars,
   found,
+  histories,
 } from "../store";
 import CachedData from "./search_history";
 
@@ -73,6 +74,7 @@ export class Read {
         if (do_save === true) {
           let history = new CachedData();
           history.add(this.str);
+          histories.set(history.data());
         }
       }
     } catch (e) {

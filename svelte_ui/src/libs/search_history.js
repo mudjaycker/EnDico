@@ -2,7 +2,7 @@ export default class CachedData {
   constructor() {
     this.db_name = "cached_data";
     this.maxSize = 100;
-    this.data = [];
+    this.data = () => this._get().data;
   }
 
   _append(data, value) {
@@ -29,26 +29,7 @@ export default class CachedData {
       if (data.length == this.maxSize) {
         this._append(data, value);
       } else data.push(value);
-      this._save({ current: data.length - 1, data });
+      this._save({ data });
     }
-  }
-
-  next() {
-    let { current, data } = this._get();
-    let index = current + 1;
-    if (index < data.length) {
-      this._save({ current: index, data });
-      return data[index];
-    }
-    return data[data.length - 1];
-  }
-  previous() {
-    let { current, data } = this._get();
-    let index = current - 1;
-    if (index >= 0) {
-      this._save({ current: index, data });
-      return data[index];
-    }
-    return data[0];
   }
 }
